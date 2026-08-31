@@ -1,0 +1,200 @@
+/* ===== Discord Translator — injected styles (Discord web) ===== */
+
+/* ---------- message translate button (inline after the text) ---------- */
+.dt-msg-btn {
+  all: unset;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 16px !important;
+  height: 16px !important;
+  margin: 0 0 0 5px !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  color: var(--interactive-muted, #949ba4) !important;
+  cursor: pointer !important;
+  vertical-align: middle !important;
+  position: relative !important;
+  top: 2px !important;
+  opacity: 0.9;
+  transition: color 0.15s ease, opacity 0.15s ease;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.dt-msg-btn:hover {
+  color: var(--interactive-active, #dbdee1) !important;
+  opacity: 1;
+}
+.dt-msg-btn.dt-active { color: #5865f2 !important; }
+.dt-msg-btn.dt-loading svg { animation: dt-spin 0.9s linear infinite; }
+.dt-msg-btn svg {
+  width: 16px !important;
+  height: 16px !important;
+  fill: currentColor !important;
+}
+
+/* ---------- in-message translation line ---------- */
+.dt-msg-translation {
+  all: unset;
+  display: block !important;
+  box-sizing: border-box;
+  margin-top: 2px !important;
+  font-size: 0.9em !important;
+  line-height: 1.375rem !important;
+  color: var(--text-normal, #dbdee1) !important;
+  animation: dt-fade-in 0.2s ease;
+}
+.dt-msg-src {
+  font-style: italic !important;
+  font-size: 0.85em !important;
+  color: var(--text-muted, #949ba4) !important;
+}
+
+/* ---------- input bar button ---------- */
+.dt-input-btn-wrap {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.dt-input-btn {
+  position: fixed;
+  z-index: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: var(--background-secondary, #2b2d31);
+  color: var(--interactive-normal, #b5bac1);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.dt-input-btn:hover {
+  color: var(--interactive-active, #dbdee1);
+  background: var(--background-modifier-hover, rgba(78, 80, 88, 0.3));
+}
+
+/* ---------- blur pill / loading overlay (fixed overlay on top of input) ---------- */
+.dt-blur-pill {
+  position: fixed;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: all;
+  transition: opacity 0.15s ease;
+}
+.dt-blur-pill.dt-visible { opacity: 1; }
+.dt-spinner {
+  width: 22px;
+  height: 22px;
+  border: 3px solid rgba(88, 101, 242, 0.25);
+  border-top-color: #5865f2;
+  border-radius: 50%;
+  animation: dt-spin 0.8s linear infinite;
+}
+
+/* ---------- symbol language picker ---------- */
+.dt-picker {
+  position: fixed;
+  z-index: 1000;
+  min-width: 200px;
+  max-height: 262px;
+  overflow-y: auto;
+  padding: 4px;
+  background: var(--background-floating, #111214);
+  border: 1px solid rgba(78, 80, 88, 0.4);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  animation: dt-fade-in 0.12s ease;
+}
+.dt-picker::-webkit-scrollbar {
+  width: 8px;
+  padding-left: 2px;
+}
+.dt-picker::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}
+.dt-picker::-webkit-scrollbar-thumb {
+  background: rgba(120, 123, 132, 0.4);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  min-height: 32px;
+}
+.dt-picker::-webkit-scrollbar-thumb:hover {
+  background: rgba(120, 123, 132, 0.7);
+  background-clip: content-box;
+}
+.dt-picker-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: var(--interactive-normal, #b5bac1);
+  font-size: 14px;
+}
+.dt-picker-item:hover, .dt-picker-item.dt-top { background: rgba(88, 101, 242, 0.18); }
+.dt-picker-item.dt-top { color: var(--interactive-active, #dbdee1); }
+.dt-picker-code {
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: #5865f2;
+  min-width: 24px;
+}
+.dt-picker-empty {
+  padding: 10px;
+  color: var(--text-muted, #949ba4);
+  font-size: 13px;
+  text-align: center;
+}
+.dt-picker-hint {
+  padding: 5px 10px 3px;
+  border-top: 1px solid rgba(78, 80, 88, 0.3);
+  color: var(--text-muted, #949ba4);
+  font-size: 10.5px;
+}
+
+/* ---------- toast ---------- */
+.dt-toast {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  z-index: 9999;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: rgba(32, 34, 37, 0.95);
+  color: #f2f3f5;
+  font-size: 13.5px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  animation: dt-toast-in 0.25s ease;
+  pointer-events: none;
+}
+.dt-toast-error { border-left: 3px solid #da373c; }
+.dt-toast-success { border-left: 3px solid #23a559; }
+.dt-toast-info { border-left: 3px solid #5865f2; }
+.dt-toast-out { opacity: 0; transition: opacity 0.3s ease; }
+
+/* ---------- keyframes ---------- */
+@keyframes dt-spin { to { transform: rotate(360deg); } }
+@keyframes dt-fade-in { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; } }
+@keyframes dt-toast-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}

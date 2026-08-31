@@ -1,0 +1,175 @@
+/* ===== Discord Translator — popup styles ===== */
+:root {
+  --bg: #ffffff;
+  --surface: #f2f3f5;
+  --text: #060607;
+  --text-secondary: #5c5e66;
+  --text-muted: #80848e;
+  --accent: #5865f2;
+  --accent-hover: #4752c4;
+  --border: #e3e5e8;
+  --danger: #da373c;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+body.dark {
+  --bg: #313338;
+  --surface: #2b2d31;
+  --text: #f2f3f5;
+  --text-secondary: #b5bac1;
+  --text-muted: #80848e;
+  --border: #3f4147;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  width: 380px;
+  font-family: "gg sans", "Segoe UI", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+}
+
+.dt-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.dt-title { display: flex; align-items: center; gap: 8px; }
+.dt-logo { font-size: 18px; }
+.dt-header h1 { font-size: 15px; font-weight: 700; }
+.dt-theme-toggle {
+  background: none; border: none; cursor: pointer;
+  font-size: 16px; padding: 4px 6px; border-radius: 6px;
+}
+.dt-theme-toggle:hover { background: var(--surface); }
+
+main { padding: 12px 16px 4px; display: flex; flex-direction: column; gap: 12px; }
+
+.dt-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px 12px;
+  font-size: 10.5px;
+  color: var(--text-muted, #80848e);
+  border-top: 1px solid var(--border, #e3e5e8);
+  margin-top: 8px;
+}
+
+.dt-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 4px 12px;
+}
+.dt-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  min-height: 40px;
+}
+.dt-row + .dt-row { border-top: 1px solid var(--border); }
+.dt-row-text { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.dt-label { font-weight: 600; font-size: 13.5px; }
+.dt-desc { font-size: 11.5px; color: var(--text-muted); }
+
+/* Pill toggle */
+.dt-switch { position: relative; display: inline-block; flex-shrink: 0; }
+.dt-switch input { opacity: 0; width: 0; height: 0; }
+.dt-pill {
+  display: block;
+  width: 40px; height: 22px;
+  background: #80848e;
+  border-radius: 11px;
+  cursor: pointer;
+  transition: background 0.18s ease;
+  position: relative;
+}
+.dt-pill::after {
+  content: "";
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 16px; height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.18s ease;
+}
+.dt-switch input:checked + .dt-pill { background: var(--accent); }
+.dt-switch input:checked + .dt-pill::after { transform: translateX(18px); }
+
+/* Symbol input */
+.dt-symbol-input {
+  width: 44px; height: 32px;
+  text-align: center;
+  font-size: 15px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  flex-shrink: 0;
+}
+.dt-symbol-input:focus { outline: none; border-color: var(--accent); }
+.dt-error { font-size: 11px; color: var(--danger); margin-top: 2px; }
+
+/* Saved indicator */
+.dt-saved {
+  font-size: 11px;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  align-self: flex-end;
+}
+.dt-saved.visible { opacity: 1; }
+
+/* Dropdowns (built by popup.js) */
+.dt-select {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 160px;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text);
+}
+.dt-select:hover { border-color: var(--accent); }
+.dt-select .dt-chev { color: var(--text-muted); font-size: 10px; }
+
+.dt-dd-wrap { position: relative; }
+.dt-dd {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  width: 260px;
+  max-height: 220px;
+  overflow-y: auto;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  z-index: 100;
+  padding: 4px;
+}
+.dt-dd-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text);
+}
+.dt-dd-item:hover { background: var(--surface); }
+.dt-dd-item.selected { color: var(--accent); font-weight: 600; }
+.dt-dd-item .dt-dd-en { font-size: 11px; color: var(--text-muted); }

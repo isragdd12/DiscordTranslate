@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="dt-header">
+    <div class="dt-title">
+      <span class="dt-logo"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg></span>
+      <h1>Discord Translator</h1>
+    </div>
+    <button id="themeToggle" class="dt-theme-toggle" title="Toggle theme">
+      <svg id="themeIconSun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg id="themeIconMoon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" hidden><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </header>
+
+  <main>
+    <!-- Toggles -->
+    <section class="dt-card">
+      <div class="dt-row">
+        <div class="dt-row-text">
+          <span class="dt-label" data-i18n="msgToggle">Message Translate Button</span>
+          <span class="dt-desc" data-i18n="msgToggleDesc"></span>
+        </div>
+        <label class="dt-switch"><input type="checkbox" id="msgTranslateBtn"><span class="dt-pill"></span></label>
+      </div>
+      <div class="dt-row">
+        <div class="dt-row-text">
+          <span class="dt-label" data-i18n="inputToggle">Input Translate Button</span>
+          <span class="dt-desc" data-i18n="inputToggleDesc"></span>
+        </div>
+        <label class="dt-switch"><input type="checkbox" id="inputTranslateBtn"><span class="dt-pill"></span></label>
+      </div>
+    </section>
+
+    <!-- Symbol -->
+    <section class="dt-card">
+      <div class="dt-row">
+        <div class="dt-row-text">
+          <span class="dt-label" data-i18n="symbol">Target Language Symbol</span>
+          <span class="dt-desc" data-i18n="symbolDesc"></span>
+          <span class="dt-error" id="symbolError" hidden></span>
+        </div>
+        <input type="text" id="symbolInput" class="dt-symbol-input" maxlength="1" value="$">
+      </div>
+    </section>
+
+    <!-- Language dropdowns -->
+    <section class="dt-card">
+      <div class="dt-row" id="nativeLangRow">
+        <div class="dt-row-text"><span class="dt-label" data-i18n="nativeLang"></span><span class="dt-saved" data-saved-for="nativeLang"></span></div>
+      </div>
+      <div class="dt-row" id="targetLangRow">
+        <div class="dt-row-text"><span class="dt-label" data-i18n="targetLang"></span><span class="dt-saved" data-saved-for="targetLang"></span></div>
+      </div>
+      <div class="dt-row" id="uiLangRow">
+        <div class="dt-row-text"><span class="dt-label" data-i18n="uiLang"></span><span class="dt-saved" data-saved-for="uiLang"></span></div>
+      </div>
+    </section>
+
+    <!-- Modifier + timeout -->
+    <section class="dt-card">
+      <div class="dt-row" id="modifierRow">
+        <div class="dt-row-text">
+          <span class="dt-label" data-i18n="modifier"></span>
+          <span class="dt-desc" data-i18n="modifierDesc"></span>
+          <span class="dt-saved" data-saved-for="inputModifier"></span>
+        </div>
+      </div>
+      <div class="dt-row">
+        <div class="dt-row-text">
+          <span class="dt-label" data-i18n="timeout"></span>
+          <span class="dt-saved" data-saved-for="timeoutSec"></span>
+        </div>
+        <input type="number" id="timeoutInput" class="dt-symbol-input" min="1" max="120" value="10">
+      </div>
+    </section>
+  </main>
+
+  <footer class="dt-footer">
+    <span>Discord Translate · v<span id="dtVersion"></span></span>
+    <span>made by isragdd</span>
+  </footer>
+
+  <script src="languages.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
+
