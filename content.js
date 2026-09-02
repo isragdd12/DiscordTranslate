@@ -90,7 +90,7 @@ function ensureMessageButtons() {
 
     const btn = document.createElement("button");
     btn.className = "dt-msg-btn";
-    btn.title = t("targetLang") + ": " + dtGetLangEntry(settings.targetLang).english;
+    btn.title = t("nativeLang") + ": " + dtGetLangEntry(settings.nativeLang).english;
     btn.innerHTML = ICON_TRANSLATE;
     btn.addEventListener("click", async (e) => {
       e.preventDefault();
@@ -104,7 +104,7 @@ function ensureMessageButtons() {
 }
 
 async function handleMsgTranslate(content, btn, msgId) {
-  const cacheKey = msgId + ":" + settings.targetLang;
+  const cacheKey = msgId + ":" + settings.nativeLang;
 
   // Toggle off if a translation is currently shown
   const existing = content.parentElement.querySelector(".dt-msg-translation");
@@ -124,7 +124,7 @@ async function handleMsgTranslate(content, btn, msgId) {
       showToast(t("nothingToTranslate"), "info");
       return;
     }
-    const res = await translateViaBackground(text, settings.targetLang);
+    const res = await translateViaBackground(text, settings.nativeLang);
     btn.classList.remove("dt-loading");
     if (!res || !res.ok) {
       if (res && res.reason === "loading") showToast(t("modelLoading"), "error");
