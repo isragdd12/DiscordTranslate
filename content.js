@@ -274,13 +274,26 @@ function extractMessageText(content) {
 // Slate.js-safe replace: simulate a real paste. Discord handles paste events
 // natively, which keeps its editor state in sync (execCommand insertText can
 // desync Slate and freeze typing).
+//
+// IMPORTANT: Slate decides where a paste lands based on the editable's current
+// *native* selection. If that selection isn't the whole content, the translation
+// gets APPENDED while the original message stays. So we first select everything
+// (via execCommand selectAll, which sets the editable selection Slate sees) so
+// the paste REPLACES the original instead of adding to it.
 function replaceTextboxText(textbox, newText) {
   textbox.focus();
-  const range = document.createRange();
-  range.selectNodeContents(textbox);
-  const sel = window.getSelection();
-  sel.removeAllRanges();
-  sel.addRange(range);
+
+  let selectedAll = false;
+  try { selectedAll = document.execCommand("selectAll"); } catch (e) { /* ignore */ }
+  if (!selectedAll) {
+    const sel = window.getSelection();
+    if (sel && sel.rangeCount) {
+      const range = document.createRange();
+      range.selectNodeContents(textbox);
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+  }
 
   try {
     const dt = new DataTransfer();
@@ -291,12 +304,20 @@ function replaceTextboxText(textbox, newText) {
       cancelable: true
     });
     textbox.dispatchEvent(evt);
-    // If nothing was pasted (event not handled), fall back to execCommand
-    if (textbox.textContent.trim() === "" && newText.trim() !== "") {
-      document.execCommand("insertText", false, newText);
+  } catch (e) { /* handled by the fallback below */ }
+
+  // Fallback: if the editor didn't end up with exactly the translation (the
+  // original message is still there, or the paste did nothing), force a clean
+  // replace by selecting everything and inserting. This guarantees the original
+  // text is removed and only the translation remains.
+  const cur = textbox.textContent.trim();
+  if (cur !== newText.trim()) {
+    try {
+      document.execCommand("selectAll");
+    } catch (e) { /* ignore */ }
+    if (document.execCommand && typeof document.execCommand === "function") {
+      try { document.execCommand("insertText", false, newText); } catch (e) { /* ignore */ }
     }
-  } catch (e) {
-    document.execCommand("insertText", false, newText);
   }
 }
 
